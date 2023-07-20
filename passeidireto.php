@@ -1,7 +1,10 @@
 <?php
-$conteudo_amostra = isset($_POST['material']) || isset($_GET['material']);
+if(isset($_POST['material'])){
+    header('Location: ' . $_SERVER['PHP_SELF'] . '?material=' . $_POST['material']);
+    exit;
+}
 
-if(!$conteudo_amostra){
+if(!isset($_GET['material'])){
     die('<html>
     <head>
     </head>
@@ -15,8 +18,7 @@ if(!$conteudo_amostra){
 </html>');    
 }
 
-
-$id = filter_var($_POST['material'] ?? $_GET['material'], FILTER_SANITIZE_NUMBER_INT);
+$id = filter_var($_GET['material'], FILTER_SANITIZE_NUMBER_INT);
 
 if(!$id){
     die('id invalido');
